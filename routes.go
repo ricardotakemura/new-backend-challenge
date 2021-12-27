@@ -6,7 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Routes() {
-	router := gin.Default()
+func Routes(router gin.IRouter) {
 	router.POST("/shopping/cart", products.Post)
 }
