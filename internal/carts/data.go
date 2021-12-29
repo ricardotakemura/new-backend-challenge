@@ -5,8 +5,8 @@ type CartRequest struct {
 }
 
 type CartItemRequest struct {
-	ID       string `json:"id"`
-	Quantity uint   `json:"quantity"`
+	ID       uint `json:"id"`
+	Quantity uint `json:"quantity"`
 }
 
 type Cart struct {
@@ -17,7 +17,7 @@ type Cart struct {
 }
 
 type CartItem struct {
-	ID          string  `json:"id"`
+	ID          uint    `json:"id"`
 	Quantity    uint    `json:"quantity"`
 	UnitAmount  float64 `json:"unit_amount"`
 	TotalAmount float64 `json:"total_amount"`
