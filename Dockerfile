@@ -8,12 +8,16 @@ COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 
-COPY ./* ./
-
+COPY ./cmd/* ./
+COPY ./internal ./internal
+COPY ./resources ../resources
+COPY ./static ../static
+COPY ./protofiles ./protofiles
 RUN go build -o /new-backend-challenge
 
-EXPOSE 8080
-
 ENV BLACK_FRIDAY_DAY="12-30"
+ENV GIN_MODE=release
 
 CMD [ "/new-backend-challenge" ]
+
+EXPOSE 8080/tcp
