@@ -1,6 +1,8 @@
 {
     "insufficient_stock": "Estoque insuficiente.",
     "invalid_quantity": "Quantidade inválida.",
-    "product_not_found": "Produto não encontrado.",
-    "invalid_body": "Corpo inválido."
+    "product_not_found": "Produto não encontrado (código do produto {{ .ProductId }}).",
+    "invalid_body": "Corpo inválido.",
+    "invalid_path": "Caminho inválido.",
+    "generic_error": "Erro interno do servidor"
 }

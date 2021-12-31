@@ -1,6 +1,8 @@
 {
     "insufficient_stock": "Insufficient stock.",
     "invalid_quantity": "Invalid quantity.",
-    "product_not_found": "Product not found.",
-    "invalid_body": "Invalid body."
+    "product_not_found": "Product not found (product code {{ .ProductId }}).",
+    "invalid_body": "Invalid body.",
+    "invalid_path": "Invalid path.",
+    "generic_error": "Internal server error"
 }

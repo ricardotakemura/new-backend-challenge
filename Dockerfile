@@ -8,10 +8,12 @@ COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 
-COPY *.go ./
+COPY ./* ./
 
 RUN go build -o /new-backend-challenge
 
 EXPOSE 8080
+
+ENV BLACK_FRIDAY_DAY="12-30"
 
 CMD [ "/new-backend-challenge" ]

@@ -1,4 +1,4 @@
-package errors
+package error
 
 type Error struct {
 	Code    string `json:"code"`
