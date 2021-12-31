@@ -24,8 +24,8 @@ func (controller ProductController) List(context *gin.Context) {
 
 func (controller ProductController) GetById(context *gin.Context) {
 	lang := "en"
-	if len(context.Request.Header["Language"]) > 0 {
-		lang = context.Request.Header["Language"][0]
+	if len(context.Request.Header["Content-Language"]) > 0 {
+		lang = context.Request.Header["Content-Language"][0]
 	}
 	context.Header("Content-Type", "application/json")
 	productIdAsString := context.Param("productid")

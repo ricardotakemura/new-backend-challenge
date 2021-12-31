@@ -19,8 +19,8 @@ func NewCartController() *CartController {
 
 func (controller CartController) CreateCart(context *gin.Context) {
 	var lang = `en`
-	if len(context.Request.Header[`Language`]) > 0 {
-		lang = context.Request.Header[`Language`][0]
+	if len(context.Request.Header["Content-Language"]) > 0 {
+		lang = context.Request.Header["Content-Language"][0]
 	}
 	var request = CartRequest{}
 	context.Header("Content-Type", "application/json")
