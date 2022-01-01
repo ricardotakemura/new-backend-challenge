@@ -10,6 +10,15 @@ type ProductService struct {
 	productModel *ProductModel
 }
 
+var _productService *ProductService
+
+func GetProductService() *ProductService {
+	if _productService == nil {
+		_productService = NewProductService()
+	}
+	return _productService
+}
+
 func NewProductService() *ProductService {
 	return &ProductService{productModel: NewProductModel()}
 }

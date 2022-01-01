@@ -8,6 +8,15 @@ type DiscountService struct {
 	discountModel *DiscountModel
 }
 
+var _discountService *DiscountService
+
+func GetDiscountService() *DiscountService {
+	if _discountService == nil {
+		_discountService = NewDiscountService()
+	}
+	return _discountService
+}
+
 func NewDiscountService() *DiscountService {
 	return &DiscountService{discountModel: NewDiscountModel()}
 }

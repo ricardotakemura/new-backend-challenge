@@ -14,7 +14,7 @@ type CartController struct {
 }
 
 func NewCartController() *CartController {
-	return &CartController{cartService: NewCartService(), errorService: error.NewErrorService()}
+	return &CartController{cartService: GetCartService(), errorService: error.GetErrorService()}
 }
 
 func (controller CartController) CreateCart(context *gin.Context) {

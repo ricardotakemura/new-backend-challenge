@@ -2,8 +2,8 @@ package product
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 )
 
@@ -17,9 +17,10 @@ func NewProductModel() *ProductModel {
 	}
 	jsonFile, err := os.Open("../static/products.json")
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalf("Failed to open products.json: %s", err.Error())
+		return &model
 	}
-	fmt.Println("Successfully opened products.json")
+	log.Println("Successfully opened products.json")
 	defer jsonFile.Close()
 
 	byteValue, _ := ioutil.ReadAll(jsonFile)

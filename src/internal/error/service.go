@@ -4,6 +4,15 @@ type ErrorService struct {
 	errorModel *ErrorModel
 }
 
+var _errorService *ErrorService
+
+func GetErrorService() *ErrorService {
+	if _errorService == nil {
+		_errorService = NewErrorService()
+	}
+	return _errorService
+}
+
 func NewErrorService() *ErrorService {
 	return &ErrorService{errorModel: NewErrorModel()}
 }

@@ -14,8 +14,17 @@ type CartService struct {
 	productService  *product.ProductService
 }
 
+var _cartService *CartService
+
+func GetCartService() *CartService {
+	if _cartService == nil {
+		_cartService = NewCartService()
+	}
+	return _cartService
+}
+
 func NewCartService() *CartService {
-	return &CartService{productService: product.NewProductService(), discountService: discount.NewDiscountService()}
+	return &CartService{productService: product.GetProductService(), discountService: discount.GetDiscountService()}
 }
 
 func (service CartService) CreateCart(request CartRequest) (*Cart, error) {

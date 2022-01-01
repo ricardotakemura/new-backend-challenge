@@ -4,15 +4,15 @@ FROM golang:1.16-alpine
 
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
+COPY ./src/go.mod ./
+COPY ./src/go.sum ./
 RUN go mod download
 
-COPY ./cmd/* ./
-COPY ./internal ./internal
-COPY ./resources ../resources
-COPY ./static ../static
-COPY ./protofiles ./protofiles
+COPY ./src/cmd/* ./
+COPY ./src/internal ./internal
+COPY ./src/resources ../resources
+COPY ./src/static ../static
+COPY ./src/protofiles ./protofiles
 RUN go build -o /new-backend-challenge
 
 ENV BLACK_FRIDAY_DAY=12-30

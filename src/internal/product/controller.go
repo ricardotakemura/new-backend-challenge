@@ -14,7 +14,7 @@ type ProductController struct {
 }
 
 func NewProductController() *ProductController {
-	return &ProductController{productService: NewProductService(), errorService: error.NewErrorService()}
+	return &ProductController{productService: GetProductService(), errorService: error.GetErrorService()}
 }
 
 func (controller ProductController) List(context *gin.Context) {
