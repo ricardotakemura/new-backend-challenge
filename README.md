@@ -1,4 +1,125 @@
-# new-backend-challenge
+# API de carrinho
 
-go get github.com/nicksnyder/go-i18n/v2/i18n
-go get github.com/gin-gonic/gin
+## Regras
+Após receber a requisição deverão ser aplicadas as seguintes regras:
+
+### Regra número 1
+Para cada produto você precisará calcular a porcentagem de desconto e isso deve ser feito consumindo um serviço gRPC fornecido por nós para auxiliar no seu teste. Utilize a imagem Docker para subir esse serviço de desconto e o arquivo proto para gerar o cliente na linguagem escolhida. Você pode encontrar como gerar um cliente gRPC nas documentações oficiais da ferramenta e em outros guias encontrados na internet.
+
+### Regra número 2
+Caso o serviço de desconto esteja indisponível o endpoint de carrinho deverá continuar funcionando porém não vai realizar o cálculo com desconto.
+
+### Regra número 3
+Deverá ser verificado se é black friday e caso seja, você deve adicionar um produto brinde no carrinho. Lembrando que os produtos brindes possuem a flag is_gift = true e não devem ser aceitos em requisições para adicioná-los ao carrinho (em uma loja virtual, esse produto não deveria ir para "vitrine"). A data da Black Friday fica a seu critério.
+
+### Regra número 4
+Deverá existir apenas uma entrada de produto brinde no carrinho.
+
+### Regra número 5
+É mandatório o uso de Docker para rodar a aplicação, de preferência utilizar docker-compose, pois facilitará o processo de correção.
+
+## Pré-requisito
+* Docker: https://docs.docker.com/engine/install/
+* Docker compose: https://docs.docker.com/compose/install/
+
+## Construir aplicação
+```sh
+docker-compose build
+```
+ou
+```sh
+docker pull hashorg/hash-mock-discount-service
+docker build -t new-backend-challenge:latest -f Dockerfile .
+``` 
+## Iniciar aplicação
+```sh
+docker-compose up
+```
+ou
+```sh
+docker run -it --expose 50051 -p50051:50051 hashorg/hash-mock-discount-service:latest&
+docker run -it --expose 8080 -p8080:8080 new-backend-challenge:latest&
+```
+
+## Endpoints
+### POST /carts/checkout
+Criar carrinho com produtos (ID) e quantidades.
+
+
+Requisição:
+```json
+{
+    "products": [
+        {
+            "id": 1,
+            "quantity": 2 // Quantidade a ser comprada do produto
+        }
+    ]
+}
+```
+
+Resposta:
+```json
+{
+    "total_amount": 20000, // Valor total da compra sem desconto
+    "total_amount_with_discount": 19500, // Valor total da compra com desconto
+    "total_discount": 500, // Valor total de descontos
+    "products": [
+        {
+            "id": 1,
+            "quantity": 2,
+            "unit_amount": 10000, // Preço do produto em centavos
+            "total_amount": 20000, // Valor total na compra desse produto em centavos
+            "discount": 500, // Valor total de desconto em centavos
+            "is_gift": false // É brinde?
+        },
+        {
+            "id": 3,
+            "quantity": 1,
+            "unit_amount": 0, // Preço do produto em centavos
+            "total_amount": 0, // Valor total na compra desse produto em centavos
+            "discount": 0, // Valor total de desconto em centavos
+            "is_gift": true // É brinde?
+        }
+    ]
+}
+```
+
+### GET /products
+Obter produtos (não brindes).
+
+
+Resposta:
+```json
+[{
+		"id": 1,
+		"title": "Ergonomic Wooden Pants",
+		"description": "Deleniti beatae porro.",
+		"amount": 15157,
+		"is_gift": false
+	},
+	{
+		"id": 2,
+		"title": "Ergonomic Cotton Keyboard",
+		"description": "Iste est ratione excepturi repellendus adipisci qui.",
+		"amount": 93811,
+		"is_gift": false
+	}
+]
+```
+
+
+### GET /products/1
+Obter produto pelo ID (não brinde).
+
+
+Resposta:
+```json
+{
+    "id": 1,
+    "title": "Ergonomic Wooden Pants",
+    "description": "Deleniti beatae porro.",
+    "amount": 15157,
+    "is_gift": false
+}
+```

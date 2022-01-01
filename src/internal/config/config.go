@@ -14,6 +14,6 @@ func Config() map[string]string {
 	return map[string]string{
 		"port":                 port,
 		"blackFridayDay":       blackFridayDay,
-		"discount_grpc_server": "localhost:50051",
+		"discount_grpc_server": "new-backend-challenge_discount_1:50051",
 	}
 }
