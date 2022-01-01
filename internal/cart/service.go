@@ -5,6 +5,7 @@ import (
 	"new-backend-challenge/internal/config"
 	"new-backend-challenge/internal/discount"
 	"new-backend-challenge/internal/product"
+	"strconv"
 	"time"
 )
 
@@ -27,9 +28,14 @@ func (service CartService) CreateCart(request CartRequest) (*Cart, error) {
 		if item.Quantity < 1 {
 			return nil, errors.New("invalid_quantity")
 		}
+		if service.hasProductInCart(*product, cart) {
+			return nil, errors.New("product_already_in_the_cart:" + strconv.FormatInt(int64((*product).ID), 10))
+		}
 		totalAmount := (*product).Amount * item.Quantity
 		discount := service.discountService.CalculateDiscount(product.ID, totalAmount)
 		cart.TotalAmount += totalAmount
+		cart.TotalDiscount += discount
+		cart.TotalAmountWithDiscount += totalAmount - discount
 		cart.Items = append(cart.Items, CartItem{ID: (*product).ID,
 			Quantity:    item.Quantity,
 			UnitAmount:  (*product).Amount,
@@ -60,6 +66,15 @@ func (service CartService) isBlackFriday() bool {
 func (service CartService) hasGift(cart Cart) bool {
 	for _, item := range cart.Items {
 		if item.IsGift {
+			return true
+		}
+	}
+	return false
+}
+
+func (service CartService) hasProductInCart(product product.Product, cart Cart) bool {
+	for _, item := range cart.Items {
+		if item.ID == product.ID {
 			return true
 		}
 	}

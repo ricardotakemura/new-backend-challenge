@@ -39,6 +39,11 @@ func (controller CartController) CreateCart(context *gin.Context) {
 			context.IndentedJSON(http.StatusUnprocessableEntity, (*controller.errorService).INVALID_QUANTITY(lang))
 			return
 		}
+		if strings.Contains(err.Error(), "product_already_in_the_cart") {
+			productId := strings.Replace(err.Error(), "product_already_in_the_cart:", "", -1)
+			context.IndentedJSON(http.StatusUnprocessableEntity, (*controller.errorService).PRODUCT_ALREADY_IN_THE_CART(lang, productId))
+			return
+		}
 		context.IndentedJSON(http.StatusUnprocessableEntity, (*controller.errorService).GENERIC_ERROR(lang))
 		return
 	}

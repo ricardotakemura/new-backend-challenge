@@ -18,6 +18,12 @@ func (service ErrorService) PRODUCT_NOT_FOUND(lang string, productId string) Err
 	return service.GetById("product_not_found", lang, params)
 }
 
+func (service ErrorService) PRODUCT_ALREADY_IN_THE_CART(lang string, productId string) Error {
+	var params = map[string]string{}
+	params["ProductId"] = productId
+	return service.GetById("product_already_in_the_cart", lang, params)
+}
+
 func (service ErrorService) INVALID_QUANTITY(lang string) Error {
 	return service.GetById("invalid_quantity", lang, nil)
 }

@@ -29,7 +29,7 @@ func (controller ProductController) GetById(context *gin.Context) {
 	}
 	context.Header("Content-Type", "application/json")
 	productIdAsString := context.Param("productid")
-	productId, err := strconv.ParseUint(productIdAsString, 10, 16)
+	productId, err := strconv.ParseInt(productIdAsString, 10, 16)
 	if err != nil {
 		context.IndentedJSON(http.StatusNotFound, (*controller.errorService).PRODUCT_NOT_FOUND(lang, productIdAsString))
 		return
