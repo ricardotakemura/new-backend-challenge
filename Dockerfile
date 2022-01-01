@@ -15,9 +15,9 @@ COPY ./static ../static
 COPY ./protofiles ./protofiles
 RUN go build -o /new-backend-challenge
 
-ENV BLACK_FRIDAY_DAY="12-30"
+ENV BLACK_FRIDAY_DAY=12-30
 ENV GIN_MODE=release
-
+ENV PORT=:8080
 CMD [ "/new-backend-challenge" ]
 
 EXPOSE 8080/tcp

@@ -2,9 +2,9 @@ package cart
 
 import (
 	"errors"
+	"new-backend-challenge/internal/config"
 	"new-backend-challenge/internal/discount"
 	"new-backend-challenge/internal/product"
-	"os"
 	"time"
 )
 
@@ -53,7 +53,7 @@ func (service CartService) CreateCart(request CartRequest) (*Cart, error) {
 
 func (service CartService) isBlackFriday() bool {
 	now := time.Now()
-	blackFridayDay := os.Getenv("BLACK_FRIDAY_DAY")
+	blackFridayDay := config.Config()["blackFridayDay"]
 	return now.Format("01-02") == blackFridayDay
 }
 
