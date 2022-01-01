@@ -34,7 +34,7 @@ func (controller ProductController) GetById(context *gin.Context) {
 		context.IndentedJSON(http.StatusNotFound, (*controller.errorService).PRODUCT_NOT_FOUND(lang, productIdAsString))
 		return
 	}
-	product, err := (*controller.productService).GetById(uint(productId))
+	product, err := (*controller.productService).GetById(int32(productId))
 	if err != nil {
 		context.IndentedJSON(http.StatusNotFound, (*controller.errorService).PRODUCT_NOT_FOUND(lang, productIdAsString))
 		return

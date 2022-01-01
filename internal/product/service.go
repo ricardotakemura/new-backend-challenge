@@ -22,7 +22,7 @@ func (service ProductService) ListNoGifts() []Product {
 	return (*service.productModel).listNoGifts()
 }
 
-func (service ProductService) GetById(id uint) (*Product, error) {
+func (service ProductService) GetById(id int32) (*Product, error) {
 	var product = (*service.productModel).getById(id)
 	if product == nil || (*product).IsGift {
 		return nil, errors.New("product_not_found:" + strconv.FormatUint(uint64(id), 10))

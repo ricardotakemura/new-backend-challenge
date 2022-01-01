@@ -4,6 +4,8 @@ go 1.17
 
 require github.com/nicksnyder/go-i18n/v2 v2.1.2
 
+require github.com/gin-gonic/examples v0.0.0-20211212053333-a61976f983ec // indirect
+
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.7.7

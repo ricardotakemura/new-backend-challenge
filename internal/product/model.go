@@ -52,7 +52,7 @@ func (model ProductModel) listGifts() []Product {
 	return filter
 }
 
-func (model ProductModel) getById(id uint) *Product {
+func (model ProductModel) getById(id int32) *Product {
 	for _, p := range model.products {
 		if p.ID == id {
 			return &p

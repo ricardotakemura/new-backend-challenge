@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"new-backend-challenge/internal/cart"
 	"new-backend-challenge/internal/product"
 
@@ -18,10 +17,6 @@ func NewRoutes() *Routes {
 }
 
 func (routes Routes) Routes(server gin.IRouter) {
-	server.Use(func(context *gin.Context) {
-		var lang = context.Request.Header["Content-Language"]
-		fmt.Println(lang)
-	})
 	server.GET("/products", (*routes.productController).List)
 	server.GET("/products/:productid", (*routes.productController).GetById)
 	server.POST("/carts/checkout", (*routes.cartController).CreateCart)

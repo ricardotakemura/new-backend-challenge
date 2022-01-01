@@ -2,17 +2,19 @@ package cart
 
 import (
 	"errors"
+	"new-backend-challenge/internal/discount"
 	"new-backend-challenge/internal/product"
 	"os"
 	"time"
 )
 
 type CartService struct {
-	productService *product.ProductService
+	discountService *discount.DiscountService
+	productService  *product.ProductService
 }
 
 func NewCartService() *CartService {
-	return &CartService{productService: product.NewProductService()}
+	return &CartService{productService: product.NewProductService(), discountService: discount.NewDiscountService()}
 }
 
 func (service CartService) CreateCart(request CartRequest) (*Cart, error) {
@@ -25,13 +27,14 @@ func (service CartService) CreateCart(request CartRequest) (*Cart, error) {
 		if item.Quantity < 1 {
 			return nil, errors.New("invalid_quantity")
 		}
-		totalAmount := (*product).Amount * uint64(item.Quantity)
+		totalAmount := (*product).Amount * item.Quantity
+		discount := service.discountService.CalculateDiscount(product.ID, totalAmount)
 		cart.TotalAmount += totalAmount
 		cart.Items = append(cart.Items, CartItem{ID: (*product).ID,
 			Quantity:    item.Quantity,
 			UnitAmount:  (*product).Amount,
 			TotalAmount: totalAmount,
-			Discount:    0,
+			Discount:    discount,
 			IsGift:      false,
 		})
 	}

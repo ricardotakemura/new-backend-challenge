@@ -5,22 +5,22 @@ type CartRequest struct {
 }
 
 type CartItemRequest struct {
-	ID       uint `json:"id"`
-	Quantity uint `json:"quantity"`
+	ID       int32 `json:"id"`
+	Quantity int32 `json:"quantity"`
 }
 
 type Cart struct {
-	TotalAmount             uint64     `json:"total_amount"`
-	TotalAmountWithDiscount uint64     `json:"total_amount_with_discount"`
-	TotalDiscount           uint64     `json:"total_discount"`
+	TotalAmount             int32      `json:"total_amount"`
+	TotalAmountWithDiscount int32      `json:"total_amount_with_discount"`
+	TotalDiscount           int32      `json:"total_discount"`
 	Items                   []CartItem `json:"products"`
 }
 
 type CartItem struct {
-	ID          uint   `json:"id"`
-	Quantity    uint   `json:"quantity"`
-	UnitAmount  uint64 `json:"unit_amount"`
-	TotalAmount uint64 `json:"total_amount"`
-	Discount    uint64 `json:"discount"`
-	IsGift      bool   `json:"is_gift"`
+	ID          int32 `json:"id"`
+	Quantity    int32 `json:"quantity"`
+	UnitAmount  int32 `json:"unit_amount"`
+	TotalAmount int32 `json:"total_amount"`
+	Discount    int32 `json:"discount"`
+	IsGift      bool  `json:"is_gift"`
 }
