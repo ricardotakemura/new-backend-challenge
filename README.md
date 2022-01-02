@@ -93,19 +93,19 @@ Resposta:
 ```json
 [
     {
-		"id": 1, //ID do produto
-		"title": "Ergonomic Wooden Pants", //Nome do produto
-		"description": "Deleniti beatae porro.", //Descrição do produto
-		"amount": 15157, // Preço do produto em centavos
-		"is_gift": false // É brinde?
-	},
-	{
-		"id": 2, //ID do produto
-		"title": "Ergonomic Cotton Keyboard", //Nome do produto
-		"description": "Iste est ratione excepturi repellendus adipisci qui.", //Descrição do produto
-		"amount": 93811, // Preço do produto em centavos
-		"is_gift": false // É brinde?
-	}
+        "id": 1, //ID do produto
+        "title": "Ergonomic Wooden Pants", //Nome do produto
+        "description": "Deleniti beatae porro.", //Descrição do produto
+        "amount": 15157, // Preço do produto em centavos
+        "is_gift": false // É brinde?
+    },
+    {
+        "id": 2, //ID do produto
+        "title": "Ergonomic Cotton Keyboard", //Nome do produto
+        "description": "Iste est ratione excepturi repellendus adipisci qui.", //Descrição do produto
+        "amount": 93811, // Preço do produto em centavos
+        "is_gift": false // É brinde?
+    }
 ]
 ```
 
