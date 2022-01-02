@@ -91,7 +91,8 @@ Obter produtos (não brindes).
 
 Resposta:
 ```json
-[{
+[
+    {
 		"id": 1, //ID do produto
 		"title": "Ergonomic Wooden Pants", //Nome do produto
 		"description": "Deleniti beatae porro.", //Descrição do produto
