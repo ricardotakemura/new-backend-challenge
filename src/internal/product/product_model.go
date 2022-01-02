@@ -7,13 +7,20 @@ import (
 	"os"
 )
 
+type IProductModel interface {
+	List() []Product
+	ListNoGifts() []Product
+	ListGifts() []Product
+	GetById(id int32) *Product
+}
+
 type ProductModel struct {
-	products []Product
+	Products []Product
 }
 
 func NewProductModel() *ProductModel {
 	var model = ProductModel{
-		products: []Product{},
+		Products: []Product{},
 	}
 	jsonFile, err := os.Open("../static/products.json")
 	if err != nil {
@@ -25,17 +32,17 @@ func NewProductModel() *ProductModel {
 
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
-	json.Unmarshal(byteValue, &model.products)
+	json.Unmarshal(byteValue, &model.Products)
 	return &model
 }
 
-func (model ProductModel) list() []Product {
-	return model.products
+func (model ProductModel) List() []Product {
+	return model.Products
 }
 
-func (model ProductModel) listNoGifts() []Product {
+func (model ProductModel) ListNoGifts() []Product {
 	filter := []Product{}
-	for _, p := range model.products {
+	for _, p := range model.Products {
 		if !p.IsGift {
 			filter = append(filter, p)
 		}
@@ -43,9 +50,9 @@ func (model ProductModel) listNoGifts() []Product {
 	return filter
 }
 
-func (model ProductModel) listGifts() []Product {
+func (model ProductModel) ListGifts() []Product {
 	filter := []Product{}
-	for _, p := range model.products {
+	for _, p := range model.Products {
 		if p.IsGift {
 			filter = append(filter, p)
 		}
@@ -53,8 +60,8 @@ func (model ProductModel) listGifts() []Product {
 	return filter
 }
 
-func (model ProductModel) getById(id int32) *Product {
-	for _, p := range model.products {
+func (model ProductModel) GetById(id int32) *Product {
+	for _, p := range model.Products {
 		if p.ID == id {
 			return &p
 		}

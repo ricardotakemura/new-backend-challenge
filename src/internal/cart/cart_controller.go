@@ -9,12 +9,12 @@ import (
 )
 
 type CartController struct {
-	cartService  *CartService
-	errorService *error.ErrorService
+	CartService  *CartService
+	ErrorService *error.ErrorService
 }
 
 func NewCartController() *CartController {
-	return &CartController{cartService: GetCartService(), errorService: error.GetErrorService()}
+	return &CartController{CartService: GetCartService(), ErrorService: error.GetErrorService()}
 }
 
 func (controller CartController) CreateCart(context *gin.Context) {
@@ -25,26 +25,26 @@ func (controller CartController) CreateCart(context *gin.Context) {
 	var request = CartRequest{}
 	context.Header("Content-Type", "application/json")
 	if context.BindJSON(&request) != nil {
-		context.IndentedJSON(http.StatusUnprocessableEntity, (*controller.errorService).INVALID_BODY(lang))
+		context.IndentedJSON(http.StatusUnprocessableEntity, (*controller.ErrorService).INVALID_BODY(lang))
 		return
 	}
-	var cart, err = controller.cartService.CreateCart(request)
+	var cart, err = controller.CartService.CreateCart(request)
 	if err != nil {
 		if strings.Contains(err.Error(), "product_not_found:") {
 			productId := strings.Replace(err.Error(), "product_not_found:", "", -1)
-			context.IndentedJSON(http.StatusUnprocessableEntity, (*controller.errorService).PRODUCT_NOT_FOUND(lang, productId))
+			context.IndentedJSON(http.StatusUnprocessableEntity, (*controller.ErrorService).PRODUCT_NOT_FOUND(lang, productId))
 			return
 		}
 		if strings.Contains(err.Error(), "invalid_quantity") {
-			context.IndentedJSON(http.StatusUnprocessableEntity, (*controller.errorService).INVALID_QUANTITY(lang))
+			context.IndentedJSON(http.StatusUnprocessableEntity, (*controller.ErrorService).INVALID_QUANTITY(lang))
 			return
 		}
 		if strings.Contains(err.Error(), "product_already_in_the_cart") {
 			productId := strings.Replace(err.Error(), "product_already_in_the_cart:", "", -1)
-			context.IndentedJSON(http.StatusUnprocessableEntity, (*controller.errorService).PRODUCT_ALREADY_IN_THE_CART(lang, productId))
+			context.IndentedJSON(http.StatusUnprocessableEntity, (*controller.ErrorService).PRODUCT_ALREADY_IN_THE_CART(lang, productId))
 			return
 		}
-		context.IndentedJSON(http.StatusUnprocessableEntity, (*controller.errorService).GENERIC_ERROR(lang))
+		context.IndentedJSON(http.StatusUnprocessableEntity, (*controller.ErrorService).GENERIC_ERROR(lang))
 		return
 	}
 	context.IndentedJSON(http.StatusCreated, *cart)

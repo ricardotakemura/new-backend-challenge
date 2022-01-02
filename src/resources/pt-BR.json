@@ -3,6 +3,6 @@
     "product_not_found": "Produto não encontrado (código do produto {{ .ProductId }}).",
     "invalid_body": "Corpo inválido.",
     "invalid_path": "Caminho inválido.",
-    "generic_error": "Erro interno do servidor",
+    "generic_error": "Erro interno do servidor.",
     "product_already_in_the_cart": "Produto já no carrinho (código do produto {{ .ProductId }})."
 }

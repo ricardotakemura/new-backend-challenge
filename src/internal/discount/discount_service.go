@@ -5,7 +5,7 @@ import (
 )
 
 type DiscountService struct {
-	discountModel *DiscountModel
+	DiscountModel IDiscountModel
 }
 
 var _discountService *DiscountService
@@ -18,10 +18,16 @@ func GetDiscountService() *DiscountService {
 }
 
 func NewDiscountService() *DiscountService {
-	return &DiscountService{discountModel: NewDiscountModel()}
+	return &DiscountService{DiscountModel: NewDiscountModel()}
 }
 
 func (service DiscountService) CalculateDiscount(productId int32, amount int32) int32 {
-	discount := (*service.discountModel).GetDiscount(productId)
+	if amount <= 0 {
+		return 0
+	}
+	discount := (service.DiscountModel).GetDiscount(productId)
+	if discount <= 0 {
+		return 0
+	}
 	return int32(math.Round(float64(amount) * float64(discount) / 100))
 }

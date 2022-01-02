@@ -10,8 +10,8 @@ import (
 )
 
 type CartService struct {
-	discountService *discount.DiscountService
-	productService  *product.ProductService
+	DiscountService *discount.DiscountService
+	ProductService  *product.ProductService
 }
 
 var _cartService *CartService
@@ -24,13 +24,13 @@ func GetCartService() *CartService {
 }
 
 func NewCartService() *CartService {
-	return &CartService{productService: product.GetProductService(), discountService: discount.GetDiscountService()}
+	return &CartService{ProductService: product.GetProductService(), DiscountService: discount.GetDiscountService()}
 }
 
 func (service CartService) CreateCart(request CartRequest) (*Cart, error) {
 	cart := Cart{TotalAmount: 0, TotalAmountWithDiscount: 0, TotalDiscount: 0, Items: []CartItem{}}
 	for _, item := range request.Items {
-		product, err := service.productService.GetById(item.ID)
+		product, err := service.ProductService.GetById(item.ID)
 		if err != nil {
 			return nil, err
 		}
@@ -41,7 +41,7 @@ func (service CartService) CreateCart(request CartRequest) (*Cart, error) {
 			return nil, errors.New("product_already_in_the_cart:" + strconv.FormatInt(int64((*product).ID), 10))
 		}
 		totalAmount := (*product).Amount * item.Quantity
-		discount := service.discountService.CalculateDiscount(product.ID, totalAmount)
+		discount := service.DiscountService.CalculateDiscount(product.ID, totalAmount)
 		cart.TotalAmount += totalAmount
 		cart.TotalDiscount += discount
 		cart.TotalAmountWithDiscount += totalAmount - discount
@@ -54,7 +54,7 @@ func (service CartService) CreateCart(request CartRequest) (*Cart, error) {
 		})
 	}
 	if service.isBlackFriday() && !service.hasGift(cart) {
-		gift := service.productService.GetGift()
+		gift := service.ProductService.GetGift()
 		cart.Items = append(cart.Items, CartItem{ID: (*gift).ID,
 			Quantity:    1,
 			UnitAmount:  0,
@@ -67,9 +67,8 @@ func (service CartService) CreateCart(request CartRequest) (*Cart, error) {
 }
 
 func (service CartService) isBlackFriday() bool {
-	now := time.Now()
 	blackFridayDay := config.Config()["blackFridayDay"]
-	return now.Format("01-02") == blackFridayDay
+	return time.Now().Format("01-02") == blackFridayDay
 }
 
 func (service CartService) hasGift(cart Cart) bool {

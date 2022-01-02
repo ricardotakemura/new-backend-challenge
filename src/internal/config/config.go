@@ -11,9 +11,13 @@ func Config() map[string]string {
 	if len(blackFridayDay) == 0 {
 		blackFridayDay = "12-31"
 	}
+	var discountServer = os.Getenv("DISCOUNT_SERVER")
+	if len(discountServer) == 0 {
+		discountServer = "new-backend-challenge_discount_1:50051"
+	}
 	return map[string]string{
 		"port":                 port,
 		"blackFridayDay":       blackFridayDay,
-		"discount_grpc_server": "new-backend-challenge_discount_1:50051",
+		"discount_grpc_server": discountServer,
 	}
 }

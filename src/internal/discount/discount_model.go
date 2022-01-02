@@ -8,6 +8,10 @@ import (
 	"google.golang.org/grpc"
 )
 
+type IDiscountModel interface {
+	GetDiscount(productId int32) float32
+}
+
 type DiscountModel struct {
 }
 

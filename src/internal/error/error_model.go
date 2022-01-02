@@ -7,6 +7,10 @@ import (
 	"golang.org/x/text/language"
 )
 
+type IErrorModel interface {
+	GetById(id string, lang string, params map[string]string) Error
+}
+
 type ErrorModel struct {
 	bundle *i18n.Bundle
 }
@@ -27,11 +31,11 @@ func (model ErrorModel) GetById(id string, lang string, params map[string]string
 		code = "0001"
 	case "invalid_quantity":
 		code = "0002"
-	case "insufficient_stock":
-		code = "0003"
 	case "invalid_body":
-		code = "0004"
+		code = "0003"
 	case "invalid_path":
+		code = "0004"
+	case "product_already_in_the_cart":
 		code = "0005"
 	default:
 		code = "0000"

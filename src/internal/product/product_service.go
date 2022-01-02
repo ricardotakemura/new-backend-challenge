@@ -7,7 +7,7 @@ import (
 )
 
 type ProductService struct {
-	productModel *ProductModel
+	ProductModel IProductModel
 }
 
 var _productService *ProductService
@@ -20,19 +20,19 @@ func GetProductService() *ProductService {
 }
 
 func NewProductService() *ProductService {
-	return &ProductService{productModel: NewProductModel()}
+	return &ProductService{ProductModel: NewProductModel()}
 }
 
 func (service ProductService) List() []Product {
-	return (*service.productModel).list()
+	return service.ProductModel.List()
 }
 
 func (service ProductService) ListNoGifts() []Product {
-	return (*service.productModel).listNoGifts()
+	return service.ProductModel.ListNoGifts()
 }
 
 func (service ProductService) GetById(id int32) (*Product, error) {
-	var product = (*service.productModel).getById(id)
+	var product = service.ProductModel.GetById(id)
 	if product == nil || (*product).IsGift {
 		return nil, errors.New("product_not_found:" + strconv.FormatUint(uint64(id), 10))
 	}
@@ -40,7 +40,7 @@ func (service ProductService) GetById(id int32) (*Product, error) {
 }
 
 func (service ProductService) GetGift() *Product {
-	gifts := service.productModel.listGifts()
+	gifts := service.ProductModel.ListGifts()
 	size := len(gifts)
 	if size == 0 {
 		return nil

@@ -9,17 +9,17 @@ import (
 )
 
 type ProductController struct {
-	productService *ProductService
-	errorService   *error.ErrorService
+	ProductService *ProductService
+	ErrorService   *error.ErrorService
 }
 
 func NewProductController() *ProductController {
-	return &ProductController{productService: GetProductService(), errorService: error.GetErrorService()}
+	return &ProductController{ProductService: GetProductService(), ErrorService: error.GetErrorService()}
 }
 
 func (controller ProductController) List(context *gin.Context) {
 	context.Header("Content-Type", "application/json")
-	context.IndentedJSON(http.StatusOK, (*controller.productService).ListNoGifts())
+	context.IndentedJSON(http.StatusOK, (*controller.ProductService).ListNoGifts())
 }
 
 func (controller ProductController) GetById(context *gin.Context) {
@@ -31,12 +31,12 @@ func (controller ProductController) GetById(context *gin.Context) {
 	productIdAsString := context.Param("productid")
 	productId, err := strconv.ParseInt(productIdAsString, 10, 16)
 	if err != nil {
-		context.IndentedJSON(http.StatusNotFound, (*controller.errorService).PRODUCT_NOT_FOUND(lang, productIdAsString))
+		context.IndentedJSON(http.StatusNotFound, (*controller.ErrorService).PRODUCT_NOT_FOUND(lang, productIdAsString))
 		return
 	}
-	product, err := (*controller.productService).GetById(int32(productId))
+	product, err := (*controller.ProductService).GetById(int32(productId))
 	if err != nil {
-		context.IndentedJSON(http.StatusNotFound, (*controller.errorService).PRODUCT_NOT_FOUND(lang, productIdAsString))
+		context.IndentedJSON(http.StatusNotFound, (*controller.ErrorService).PRODUCT_NOT_FOUND(lang, productIdAsString))
 		return
 	}
 	context.IndentedJSON(http.StatusOK, *product)

@@ -18,6 +18,7 @@ RUN go build -o /new-backend-challenge
 ENV BLACK_FRIDAY_DAY=12-30
 ENV GIN_MODE=release
 ENV PORT=:8080
+ENV DISCOUNT_SERVER=new-backend-challenge_discount_1:50051
 CMD [ "/new-backend-challenge" ]
 
 EXPOSE 8080/tcp

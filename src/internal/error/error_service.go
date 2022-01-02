@@ -1,7 +1,7 @@
 package error
 
 type ErrorService struct {
-	errorModel *ErrorModel
+	ErrorModel IErrorModel
 }
 
 var _errorService *ErrorService
@@ -14,11 +14,11 @@ func GetErrorService() *ErrorService {
 }
 
 func NewErrorService() *ErrorService {
-	return &ErrorService{errorModel: NewErrorModel()}
+	return &ErrorService{ErrorModel: NewErrorModel()}
 }
 
 func (service ErrorService) GetById(id string, lang string, params map[string]string) Error {
-	return (*service.errorModel).GetById(id, lang, params)
+	return service.ErrorModel.GetById(id, lang, params)
 }
 
 func (service ErrorService) PRODUCT_NOT_FOUND(lang string, productId string) Error {
@@ -35,10 +35,6 @@ func (service ErrorService) PRODUCT_ALREADY_IN_THE_CART(lang string, productId s
 
 func (service ErrorService) INVALID_QUANTITY(lang string) Error {
 	return service.GetById("invalid_quantity", lang, nil)
-}
-
-func (service ErrorService) INSUFFICIENT_STOCK(lang string) Error {
-	return service.GetById("insufficient_stock", lang, nil)
 }
 
 func (service ErrorService) INVALID_BODY(lang string) Error {
