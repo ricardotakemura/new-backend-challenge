@@ -22,7 +22,7 @@ func NewProductModel() *ProductModel {
 	var model = ProductModel{
 		Products: []Product{},
 	}
-	jsonFile, err := os.Open("../static/products.json")
+	jsonFile, err := os.Open("../data/products.json")
 	if err != nil {
 		log.Fatalf("Failed to open products.json: %s", err.Error())
 		return &model

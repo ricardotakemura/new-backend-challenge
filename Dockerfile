@@ -4,6 +4,8 @@ FROM golang:1.16-alpine
 
 WORKDIR /app
 
+RUN apk add build-base
+
 COPY ./src/go.mod ./
 COPY ./src/go.sum ./
 RUN go mod download
@@ -11,8 +13,9 @@ RUN go mod download
 COPY ./src/cmd/* ./
 COPY ./src/internal ./internal
 COPY ./src/resources ../resources
-COPY ./src/static ../static
+COPY ./src/data ../data
 COPY ./src/protofiles ./protofiles
+RUN go test  ./... -v
 RUN go build -o /new-backend-challenge
 
 ENV BLACK_FRIDAY_DAY=12-30

@@ -51,7 +51,7 @@ Requisição:
 {
     "products": [
         {
-            "id": 1,
+            "id": 1, //ID do produto
             "quantity": 2 // Quantidade a ser comprada do produto
         }
     ]
@@ -66,16 +66,16 @@ Resposta:
     "total_discount": 500, // Valor total de descontos
     "products": [
         {
-            "id": 1,
-            "quantity": 2,
+            "id": 1, //ID do produto
+            "quantity": 2, //Quantidade
             "unit_amount": 10000, // Preço do produto em centavos
             "total_amount": 20000, // Valor total na compra desse produto em centavos
             "discount": 500, // Valor total de desconto em centavos
             "is_gift": false // É brinde?
         },
         {
-            "id": 3,
-            "quantity": 1,
+            "id": 3, //ID do produto
+            "quantity": 1, //Quantidade
             "unit_amount": 0, // Preço do produto em centavos
             "total_amount": 0, // Valor total na compra desse produto em centavos
             "discount": 0, // Valor total de desconto em centavos
@@ -92,18 +92,18 @@ Obter produtos (não brindes).
 Resposta:
 ```json
 [{
-		"id": 1,
-		"title": "Ergonomic Wooden Pants",
-		"description": "Deleniti beatae porro.",
-		"amount": 15157,
-		"is_gift": false
+		"id": 1, //ID do produto
+		"title": "Ergonomic Wooden Pants", //Nome do produto
+		"description": "Deleniti beatae porro.", //Descrição do produto
+		"amount": 15157, // Preço do produto em centavos
+		"is_gift": false // É brinde?
 	},
 	{
-		"id": 2,
-		"title": "Ergonomic Cotton Keyboard",
-		"description": "Iste est ratione excepturi repellendus adipisci qui.",
-		"amount": 93811,
-		"is_gift": false
+		"id": 2, //ID do produto
+		"title": "Ergonomic Cotton Keyboard", //Nome do produto
+		"description": "Iste est ratione excepturi repellendus adipisci qui.", //Descrição do produto
+		"amount": 93811, // Preço do produto em centavos
+		"is_gift": false // É brinde?
 	}
 ]
 ```
@@ -116,10 +116,15 @@ Obter produto pelo ID (não brinde).
 Resposta:
 ```json
 {
-    "id": 1,
-    "title": "Ergonomic Wooden Pants",
-    "description": "Deleniti beatae porro.",
-    "amount": 15157,
-    "is_gift": false
+    "id": 1, //ID do produto
+    "title": "Ergonomic Wooden Pants", //Nome do produto
+    "description": "Deleniti beatae porro.", //Descrição do produto
+    "amount": 15157, // Preço do produto em centavos
+    "is_gift": false // É brinde?
 }
 ```
+
+## Outras documentações
+
+* [Swagger](/docs/swagger.yaml)
+
