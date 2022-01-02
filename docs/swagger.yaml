@@ -72,7 +72,7 @@ paths:
         schema:
           $ref: "#/definitions/CartRequest"
       responses:
-        "200":
+        "201":
           description: "Operação realizada com sucesso"
           schema:
             $ref: "#/definitions/Cart"
@@ -80,8 +80,12 @@ paths:
           description: "Produto não encontrado"
           schema:
             $ref: "#/definitions/Error"
+        "400":
+          description: "Estrutura inválida"
+          schema:
+            $ref: "#/definitions/Error"
         "422":
-          description: "Estrutura ou valores inválidos"
+          description: "Valores inválidos"
           schema:
             $ref: "#/definitions/Error"
         "500":
