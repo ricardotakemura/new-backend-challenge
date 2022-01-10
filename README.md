@@ -19,10 +19,22 @@ Deverá existir apenas uma entrada de produto brinde no carrinho.
 É mandatório o uso de Docker para rodar a aplicação, de preferência utilizar docker-compose, pois facilitará o processo de correção.
 
 ## Pré-requisito
+* Go 1.17: https://go.dev/dl/
 * Docker: https://docs.docker.com/engine/install/
 * Docker compose: https://docs.docker.com/compose/install/
 
 ## Construir aplicação
+Local:
+- Na raiz do projeto faça:
+```sh
+cd src
+go mod download
+cd cmd
+go build -o ./new-backend-challenge
+```
+---
+Docker:
+- Na raiz do projeto faça:
 ```sh
 docker-compose build
 ```
@@ -30,8 +42,18 @@ ou
 ```sh
 docker pull hashorg/hash-mock-discount-service
 docker build -t new-backend-challenge:latest -f Dockerfile .
-``` 
+```
+
 ## Iniciar aplicação
+Local:
+- Na raiz do projeto faça:
+```sh
+cd src/cmd
+./new-backend-challenge
+```
+---
+Docker:
+- Na raiz do projeto faça:
 ```sh
 docker-compose up
 ```
@@ -41,7 +63,16 @@ docker run -it --expose 50051 -p50051:50051 hashorg/hash-mock-discount-service:l
 docker run -it --expose 8080 -p8080:8080 new-backend-challenge:latest&
 ```
 
+## Executar testes
+- Na raiz do projeto faça:
+```sh
+cd src
+go test  ./... -v
+```
+
 ## Endpoints
+Observação: A aplicação local roda em http://localhost:8080/
+
 ### POST /carts/checkout
 Criar carrinho com produtos (ID) e quantidades.
 
