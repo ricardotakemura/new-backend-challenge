@@ -23,6 +23,19 @@ Deverá existir apenas uma entrada de produto brinde no carrinho.
 * Docker: https://docs.docker.com/engine/install/
 * Docker compose: https://docs.docker.com/compose/install/
 
+## Configurações
+Variáveis de ambiente:
+```sh
+#Indica o mês-dia do evento Black Friday. Por exemplo, 11-23 (23 de Novembo)
+export BLACK_FRIDAY_DAY=12-30
+#Modo "release" do framework gin (serviços REST). Além de "release", os outros valores possíveis são "debug" ou "test"
+export GIN_MODE=release
+#Porta de internet que o sistema ficará disponível localmente. Por exemplo, http://localhost:8080
+export PORT=:8080
+#Endereço do servidor de descontos (serviço de descontos)
+export DISCOUNT_SERVER=new-backend-challenge_discount_1:50051
+```
+
 ## Construir aplicação
 Local:
 - Na raiz do projeto faça:
